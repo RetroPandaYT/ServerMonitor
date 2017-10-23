@@ -1,4 +1,4 @@
-const { saltHashPassword } = require('../controllers/userController.js') //need to specify relatively for migrations
+const { saltHashPassword } = require('../controllers/UserController.js') //need to specify relatively for migrations
 exports.up = async function up (knex, Promise) {
   await knex.schema.table('user', t => {
     t.string('salt').notNullable()
