@@ -1,0 +1,31 @@
+{
+  "name": "servermonitor",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dbernacchi/ServerMonitor.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dbernacchi/ServerMonitor/issues"
+  },
+  "homepage": "https://github.com/dbernacchi/ServerMonitor#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.1",
+    "jsonwebtoken": "^8.1.0",
+    "knex": "^0.13.0",
+    "mysql": "^2.15.0",
+    "react": "^16.0.0",
+    "react-router-dom": "^4.2.2"
+  },
+  "devDependencies": {},
+  "description": ""
+}

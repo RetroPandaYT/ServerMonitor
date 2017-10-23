@@ -1,0 +1,62 @@
+$font-stack:    Helvetica, sans-serif;
+$primary-color: #333;
+
+body {
+  font: 100% $font-stack;
+  color: $primary-color;
+  background-color: #ccc;
+}
+
+.form-header {
+    font-size: 12px;
+    font-weight: 700;
+    color: #959595;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+/*Modals*/
+.fade{
+  display: block;
+}
+
+.out {
+    -webkit-transition: opacity .2 linear, visibility .25s linear;
+    -o-transition: opacity .25s linear, visibility .25s linear;
+    transition: opacity .25s linear, visibility .25s linear;
+    display: block;
+    visibility: hidden;
+    z-index: -1
+}
+
+.in{
+  -webkit-transition: opacity .25s linear;
+  -o-transition: opacity .25s linear;
+  transition: opacity .25s linear;
+  visibility: visible;
+}
+
+.modal-backdrop.in{
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-backdrop.out{
+  opacity: 1;
+  background: rgba(0, 0, 0, 0);
+}
+
+.modal.fade .modal-dialog{
+  -webkit-transform: initial;
+  -ms-transform: initial;
+  -o-transform: initial;
+  transform: initial;
+}
+
+.modal.fade.in .modal-dialog{
+  -webkit-transform: initial;
+  -ms-transform: initial;
+  -o-transform: initial;
+  transform: initial;
+}
