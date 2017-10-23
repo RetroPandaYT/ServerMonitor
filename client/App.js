@@ -79,7 +79,7 @@ class PageWrapper extends React.Component {
     import(`./pages/${path}`).then(function(mod) {
 
       if (mod.default) {
-        
+
         this.setState({"ImportedPage": mod.default})
       } else {
 
