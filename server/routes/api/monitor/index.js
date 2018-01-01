@@ -9,13 +9,13 @@ monitor.use(bodyParser.json());
 monitor.get('/list/:page', (req, res) => {
 
   let page = req.params.page;
-  response = monitorController.list(req, res, page)
+  monitorController.list(req, res, page)
 
 })
 
 monitor.post('/notify', (req, res) => {
 
-  response = monitorController.notify(req, res)
+  monitorController.notify(req, res)
 
 })
 
@@ -23,14 +23,26 @@ monitor.post('/notify', (req, res) => {
 monitor.put('/update/:id', (req, res) => {
 
   let id = req.params.id;
-  response = monitorController.update(req, res, id)
+  monitorController.update(req, res, id)
 
 })
 
-monitor.delete('/delete/:id', (req, res) => {
+monitor.put('/delete/:id', (req, res) => {
 
   let id = req.params.id;
-  response = monitorController.delete(req, res, id)
+  monitorController.delete(req, res, id)
+
+})
+
+monitor.get('/broadcast', (req, res) => {
+
+  monitorController.broadcast(req, res)
+
+})
+
+monitor.get('/broadcast1', (req, res) => {
+
+  monitorController.broadcast1(req, res)
 
 })
 

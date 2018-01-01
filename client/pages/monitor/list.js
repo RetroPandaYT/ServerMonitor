@@ -117,8 +117,6 @@ class List extends React.Component {
 
     this.state = Store.getState()
 
-    console.log(id)
-
     Actions.delete(id, this.state)
 
     this.closeDeleteModal()
@@ -135,9 +133,7 @@ class List extends React.Component {
 
     const resolved = event.target.dataset.resolved
 
-
-
-    if(resolved){
+    if(resolved == 1){
       resolveText = 'unresolve'
     }
 
@@ -174,8 +170,6 @@ class List extends React.Component {
     const id = event.target.dataset.id
     const resolved = event.target.dataset.resolved
 
-    console.log(event.target.dataset)
-
     this.state = Store.getState()
 
     Actions.resolve(id, resolved, this.state)
@@ -196,15 +190,14 @@ class List extends React.Component {
 
     const list = Immutable.fromJS(this.state.list)
 
-    console.log('list')
-    console.log(this.state.list)
-
     const TableRow = (props) => {
 
       let resolveStyle = 'primary'
+      let resolveText = 'resolve'
 
-      if(!props.isResolved){
+      if(props.isResolved){
         resolveStyle = 'success'
+        resolveText = 'unresolve'
       }
 
       return <tr>
@@ -225,7 +218,7 @@ class List extends React.Component {
         </td>
         <td>
           <Button bsSize="xsmall" bsStyle={resolveStyle} onClick={this.openResolveModal} data-id={props.id} data-resolved={props.isResolved}>
-            resolve
+            {resolveText}
           </Button>
         </td>
         <td>

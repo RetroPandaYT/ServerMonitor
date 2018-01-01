@@ -120,8 +120,10 @@ class Update extends React.Component {
     if (!this.state.form.username)
       return null;
 
-    console.log('is')
-    console.log(this.state.form.is_receiving)
+    let checked = false
+    if(this.state.form.is_receiving == 1){
+      checked = true
+    }
 
     return (
       <div className="user-create">
@@ -165,7 +167,7 @@ class Update extends React.Component {
                   <Checkbox
                     name="is_receiving"
                     value="1"
-                    defaultChecked={this.state.form.is_receiving}
+                    defaultChecked={checked}
                     onChange={this.onChange}
                   >
                     Receive notifications

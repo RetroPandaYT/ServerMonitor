@@ -1,6 +1,7 @@
 const crypto = require('crypto')
-const knex = require('knex')(require('../knexfile')) //need to specify relatively for migrations
 const jwt = require('jwt-simple')
+const responder = require(APPROOT + '/helpers/Responder.js')
+const knexHelper = require(APPROOT + '/helpers/KnexHelper.js')
 
 /*
 //log actual sql output
@@ -12,6 +13,8 @@ knex.on( 'query', function( queryData ) {
 module.exports = {
 
   create (req, res) {
+
+    knex = knexHelper.init()
 
     let username = req.body.form.username
     let password = req.body.form.password
@@ -37,34 +40,42 @@ module.exports = {
           output = inserts[0]
       }
 
-      res.status(200).json(output)
+      responder.success(res, output, inserts)
 
     })
-    .catch(function(error) {
+    .catch(function(err) {
 
-      console.log(error)
+      responder.error(res, -1, err)
 
-      res.status(200).json(-1)
-
+    })
+    .then( () => {
+      knexHelper.destroy()
     })
 
   },
 
   read(req, res, id){
 
+    knex = knexHelper.init()
+
     knex.select('id', 'username', 'sms', 'is_receiving').from('user').where('id', '=', id).then(function (values) {
 
-      res.status(200).json({ values })
+      responder.success(res, { values }, '')
 
     }).catch(function(err) {
 
-      console.log(err)
+      responder.error(res, '', err)
 
+    })
+    .then( () => {
+      knexHelper.destroy()
     })
 
   },
 
   update (req, res, id) {
+
+    knex = knexHelper.init()
 
     let username = req.body.form.username
     let password = req.body.form.password
@@ -95,20 +106,23 @@ module.exports = {
     })
     .then(function(inserts) {
 
-      res.status(200).json(1)
+      responder.success(res, 1, inserts)
 
     })
-    .catch(function(error) {
+    .catch(function(err) {
 
-      console.log(error)
-      res.status(200).json(-1)
+      responder.error(res, -1, err)
 
     })
-
+    .then( () => {
+      knexHelper.destroy()
+    })
 
   },
 
   delete (req, res, id) {
+
+    knex = knexHelper.init()
 
     //id = 0
 
@@ -125,29 +139,35 @@ module.exports = {
     })
     .then(function(inserts) {
 
-      res.status(200).json(1)
+      responder.success(res, 1, inserts)
 
     })
-    .catch(function(error) {
+    .catch(function(err) {
 
-      console.log(error)
-      res.status(200).json(-1)
+      responder.error(res, -1, err)
 
     })
-
+    .then( () => {
+      knexHelper.destroy()
+    })
 
   },
 
   list(req, res){
 
+    knex = knexHelper.init()
+
     knex.select('id', 'username').from('user').then(function (values) {
 
-      res.status(200).json({ values })
+      responder.success(res, { values }, '')
 
     }).catch(function(err) {
 
-      console.log(err)
+      responder.error(res, '', err)
 
+    })
+    .then( () => {
+      knexHelper.destroy()
     })
 
   },
@@ -172,7 +192,7 @@ module.exports = {
         payload = { username: username, time: Date.now() }
         token = jwt.encode(payload, secret)
 
-        res.status(200).json(token)
+        responder.success(res, token, '')
 
       } else {
 
@@ -184,11 +204,11 @@ module.exports = {
           payload = { username: superUser, time: Date.now() }
           token = jwt.encode(payload, secret)
 
-          res.status(200).json(token)
+          responder.success(res, token, '')
 
         } else {
 
-          res.status(401).json(-1)
+          responder.unauthorized(res, -1, '')
 
         }
       }
@@ -203,13 +223,19 @@ module.exports = {
 
 function authenticate ({ username, password }) {
 
+  knex = knexHelper.init()
+
   return knex('user').where({ username })
     .then(([user]) => {
+
+      knexHelper.destroy()
+
       if (!user) return { success: false }
       const { hash } = saltHashPassword({
         password,
         salt: user.salt
       })
+
 
       return { success: hash === user.encrypted_password }
 

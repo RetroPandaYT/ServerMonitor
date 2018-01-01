@@ -20,8 +20,6 @@ const App = () => (
   <Router>
     <Switch>
       <Route exact path="/" component={Home}/>
-      <Route path="/one" component={PageOne} />
-      <Route path="/two" component={PageTwo}/>
       <Route path="/:page/:subPage" component={PageWrapper}/>
       <Route path="/:page" component={PageWrapper}/>
     </Switch>

@@ -1,0 +1,16 @@
+default:
+    subject: PetGTest Alert
+    email_html: |
+        <p>
+        Server: {server}<br />
+        Name: {name}<br />
+        Message: {msg}
+        </p>
+    email_text: |
+        Server: {server}\r\n
+        Name: {name}\r\n
+        Message: {msg}\r\n
+
+
+    sms_text:
+        Check your email

@@ -17,6 +17,9 @@ module.exports = function(whitelist, whitelistInclusive) {
 
     }
 
+    let username = ''
+    let token = ''
+
     if(!auth){
       if(whitelist.indexOf(req.originalUrl) > -1){
 
@@ -24,8 +27,19 @@ module.exports = function(whitelist, whitelistInclusive) {
 
       } else {
 
-        const username = req.get('AuthUser')
-        const token = req.get('AuthToken')
+        //for lambda
+        if(process.env.NODE_ENV !== 'development'){
+
+          const ev = req.apiGateway.event
+          username = ev.headers.authuser
+          token = ev.headers.authtoken
+
+        } else {
+
+          username = req.get('AuthUser')
+          token = req.get('AuthToken')
+
+        }//if process dev
 
         if(token && token != -1 && username){
 
@@ -42,9 +56,19 @@ module.exports = function(whitelist, whitelistInclusive) {
 
             auth = true
 
-          }
+          }//if decoded
 
-        }
+        }//if(token && token != -1 && username)
+
+      }
+
+    }
+
+    if(!auth) {
+
+      if(username == process.env.SUPER_USER && password == SUPER_PASSWORD){
+
+        auth = true
 
       }
 
@@ -53,6 +77,7 @@ module.exports = function(whitelist, whitelistInclusive) {
     if(!auth) {
 
       return res.sendStatus(401)
+
 
     } else {
 

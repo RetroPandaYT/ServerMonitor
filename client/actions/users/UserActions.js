@@ -42,6 +42,7 @@ const fetchAPI = (url, method, body, callback) => {
     delete_cookie(UserCookie)
 
     if(url != loginUrl){
+      //console.log("trying to redirect to login")
       location.href='/users/login'
     }
 
@@ -221,7 +222,7 @@ let UserActions = {
 
     if(id){
 
-      fetchAPI('/users/delete/' + id, 'DELETE', {},
+      fetchAPI('/users/delete/' + id, 'PUT', {},
         function (data){
 
           let result = "Deleted"

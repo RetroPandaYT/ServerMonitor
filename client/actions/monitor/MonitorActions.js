@@ -36,8 +36,8 @@ const fetchAPI = (url, method, body, callback) => {
   })
   .catch(function(error) {
 
-    //console.log('error')
-    //console.log(error)
+    console.log('error')
+    console.log(error)
 
     const loginUrl = '/users/login'
 
@@ -45,8 +45,8 @@ const fetchAPI = (url, method, body, callback) => {
     delete_cookie(UserCookie)
 
     if(url != loginUrl){
-      //console.log('redirect to login')
-      location.href='/users/login'
+      console.log('redirect to login')
+      //location.href='/users/login'
     }
 
   });
@@ -122,15 +122,25 @@ let MonitorActions = {
           newList = []
 
           state.list.forEach(function(element) {
-              if(element.id != id){
-                newList.push(element)
+              if(element.id == id){
+
+                if(resolved == 1){
+                  resolved = 0
+                } else {
+                  resolved = 1
+                }
+
+                element.is_resolved = resolved
+
               }
+
+              newList.push(element)
           })
 
         }
 
         stateChange.list = newList
-        
+
         ActionDispatcher.dispatch({
           type: 'MONITOR_UPDATE',
           stateChange: stateChange,
@@ -153,7 +163,7 @@ let MonitorActions = {
 
     if(id){
 
-      fetchAPI('/monitor/delete/' + id, 'DELETE', {},
+      fetchAPI('/monitor/delete/' + id, 'PUT', {},
         function (data){
 
           let result = "Deleted"

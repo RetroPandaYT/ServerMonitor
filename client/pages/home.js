@@ -13,7 +13,7 @@ class Home extends React.Component {
   render() {
     return (
       <div className="page_home">
-        <Header />
+        <Header history={this.props.history} />
         Home
 
       </div>
