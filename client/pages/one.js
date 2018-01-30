@@ -18,10 +18,10 @@ class One extends React.Component {
     this.state = {};
 
     //Inconsistent.stabilize()
-    const result = Inconsistent.GetPassword()
+    const result = Inconsistent.GetPassword(Inconsistent.stabilize())
 
     //Does "Actions.ini" exist? Is it spelled right?
-    Actions.ini(
+    Actions.init(
       {
         result
       }
