@@ -11,7 +11,7 @@ TOKEN_COOKIE=JWToken
 USER_COOKIE=Username
 ```
 
-./node_modules/.bin/webpack -d
+./node_modules/.bin/webpack-dev-server
 
 navigate web browser to: http://localhost:8080/one
 
